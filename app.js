@@ -9,18 +9,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
 
 app.get('/', function (req, res) {
-  res.render('index', {server:"Turn on Server"});
+  res.render('index', {server:"Turn on Server", time: ""});
 });
 app.get('/status', function (req, res) {
-    res.render('status', {server:"Turn on Server"});
+    res.render('status', {server:"Turn on Server", time: ""});
   });
 
 app.get('/on', function (req, res) {
     wol.wake('D8CB8A3B5820', function(error) {
         if (error) {
-            res.render('index', {server:"Error turning on Server"});
+            res.render('index', {server:"Error turning on Server", time: ""});
         } else {
-            res.render('index', {server:"Turning on Server"});
+            res.render('index', {server:"Turning on Server", time: "This might take a while"});
         }
       });
     
