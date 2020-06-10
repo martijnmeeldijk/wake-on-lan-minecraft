@@ -1,4 +1,4 @@
-@import url(font-awesome.min.css);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic");
 
 /*
@@ -3210,7 +3210,7 @@
 					}
 
 		#menu .close {
-			background-image: url("/web/fresh/css/images/close.svg");
+			background-image: url("https://minecog.com/web/fresh/css/images/close.svg");
 			background-position: 4.85em 1em;
 			background-repeat: no-repeat;
 			border: 0;
@@ -3327,7 +3327,7 @@
 						}
 
 							#header nav > ul > li > a.menuToggle:after {
-								background-image: url("/web/fresh/css/images/bars.svg");
+								background-image: url("https://minecog.com/web/fresh/css/images/bars.svg");
 								background-position: right center;
 								background-repeat: no-repeat;
 								content: '';
@@ -3481,7 +3481,7 @@
 		}
 
 			#banner .more:after {
-				background-image: url("/web/fresh/css/images/arrow.svg");
+				background-image: url("https://minecog.com/web/fresh/css/images/arrow.svg");
 				background-position: center;
 				background-repeat: no-repeat;
 				background-size: contain;

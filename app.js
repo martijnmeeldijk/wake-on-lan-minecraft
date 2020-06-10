@@ -11,6 +11,9 @@ app.set('view engine', 'ejs')
 app.get('/', function (req, res) {
   res.render('index', {server:"Turn on Server"});
 });
+app.get('/status', function (req, res) {
+    res.render('status', {server:"Turn on Server"});
+  });
 
 app.get('/on', function (req, res) {
     wol.wake('D8CB8A3B5820', function(error) {

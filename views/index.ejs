@@ -14,7 +14,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 	<link rel="stylesheet" href="main.css" />
 	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 	<script src="https://momentjs.com/downloads/moment.min.js"></script>
-	<script src="https://ujafedny.org/assets/bower_components/moment/locale/*.js"></script>
+	<script src="https://ujafedny.org/assets/bower_components/moment/locale/en_us.js"></script>
 	<!-- Your preferred locale instead of * -->
 	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
@@ -66,19 +66,19 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 					</li>
 					<li>
 						<div class="label">Version: </div>
-						<i id="version" class="fa fa-question"></i>
+						<div id="version"></div>
 					</li>
 					<li>
 						<div class="label">MOTD: </div>
-						<i id="motd" class="fa fa-question"></i>
+						<div id="motd"></div>
 					</li>
 					<li>
 						<div class="label">Players: </div>
-						<i id="numplayers" class="fa fa-question"></i>
+						<div id="numplayers"></div>
 					</li>
 					<li>
 						<div class="label">Last Update: </div>
-						<i id="updated" class="fa fa-question"></i>
+						<div id="updated"></div>
 					</li>
 				</ul>
 				<a href="/on" class="button"><%= server %></a>
@@ -106,7 +106,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 		<!-- Two -->
 		<section id="two" class="wrapper alt style2">
 			<section class="spotlight">
-				<div class="image"><img src="/web/images/1.jpg" alt="" /></div>
+				<div class="image"><img src="https://minecog.com/web/images/1.jpg" alt="" /></div>
 				<div class="content">
 					<h2>Incredible Items</h2>
 					<p>Defeat monsters to loot their randomly generated items, buy scrolls and potions from shops, and
@@ -115,7 +115,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				</div>
 			</section>
 			<section class="spotlight">
-				<div class="image"><img src="/web/images/2.png" alt="" /></div>
+				<div class="image"><img src="https://minecog.com/web/images/2.png" alt="" /></div>
 				<div class="content">
 					<h3>Custom Terrain</h3>
 					<p>Fresh's world was designed from scratch for the server. Explore new custom biomes but be advised
@@ -123,7 +123,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				</div>
 			</section>
 			<section class="spotlight">
-				<div class="image"><img src="/web/images/3.jpg" alt="" /></div>
+				<div class="image"><img src="https://minecog.com/web/images/3.jpg" alt="" /></div>
 				<div class="content">
 					<h2>Description 3</h2>
 					<p>Description 2 Example Text Paragraph 1 With <strong>Bold Text</strong></p>
@@ -186,15 +186,15 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 	</div>
 
 	<!-- Scripts -->
-	<script src="/web/fresh/js/jquery.min.js"></script>
-	<script src="/web/fresh/js/jquery.scrollex.min.js"></script>
-	<script src="/web/fresh/js/jquery.scrolly.min.js"></script>
-	<script src="/web/fresh/js/skel.min.js"></script>
-	<script src="/web/fresh/js/util.js"></script>
-	<script src="/web/fresh/js/main.js"></script>
+	<script src="https://minecog.com/web/fresh/js/jquery.min.js"></script>
+	<script src="https://minecog.com/web/fresh/js/jquery.scrollex.min.js"></script>
+	<script src="https://minecog.com/web/fresh/js/jquery.scrolly.min.js"></script>
+	<script src="https://minecog.com/web/fresh/js/skel.min.js"></script>
+	<script src="https://minecog.com/web/fresh/js/util.js"></script>
+	<script src="https://minecog.com/web/fresh/js/main.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 	<script>
-		var rq = 'https://mcapi.us/server/status?ip=mc.epicgamertime.com&port=25565 ';  	// <---- Your Minecraft server IP here; add &port=<port> if you are using a different port
+		var rq = 'https://mcapi.us/server/status?ip=mc.epicgamertime.com';  	// <---- Your Minecraft server IP here; add &port=<port> if you are using a different port
 		var error = 'unknown';				// of 25565. For instance: https://mcapi.us/server/status?ip=s.nerd.nu&port=25565 
 		var classes = {					// more info in https://mcapi.us/
 			error: "fa-question",
@@ -239,7 +239,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				motd = $('#motd'),
 				updated = $('#updated'),
 				d = new Date(data.last_updated * 1000);
-			moment.locale('*');				// The locale which you have used before.
+			moment.locale('en_us');				// The locale which you have used before.
 			settext(updated, moment(d).fromNow());
 			setclass(online, data.online);
 			if (data.online) {

@@ -1,0 +1,99 @@
+<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script src="https://ujafedny.org/assets/bower_components/moment/locale/*.js"></script> 	<!-- Your preferred locale instead of * -->
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<script>
+var rq = '//mcapi.us/server/status?ip=mc.epicgamertime.com';  	// <---- Your Minecraft server IP here; add &port=<port> if you are using a different port
+var error = 'unknown';				// of 25565. For instance: https://mcapi.us/server/status?ip=s.nerd.nu&port=25565 
+var classes = {					// more info in https://mcapi.us/
+	error: "fa-question",
+	false: "fa-times",
+	true: "fa-check",
+};
+var allclasses = "";
+for(i in classes) {
+	allclasses += ' '+classes[i];
+};
+function q(addr, cb) {
+	$.ajax({
+		url: rq,
+		type: 'GET',
+		dataType: 'json',
+		data: {ip: addr, players: true},
+	})
+	.done(function(data) {
+		console.log("success");
+		console.log(data);
+		cb(data);
+	})
+	.fail(function(data) {
+		console.log("error");
+	})
+	.always(function() {
+	});
+}
+function setclass(o, c) {
+	o.removeClass(allclasses);
+	o.addClass(classes[c]);
+	o.html('');
+}
+function settext(o, t) {
+	o.removeClass(allclasses);
+	o.html(t);
+}
+function display(data) {
+	var np = $('#numplayers'),
+	    version = $('#version'),
+	    online = $('#online'),
+	    motd = $('#motd'),
+	    updated = $('#updated'),
+	    d = new Date(data.last_updated*1000);
+	moment.locale('*');				// The locale which you have used before.
+	settext(updated, moment(d).fromNow());
+	setclass(online, data.online);
+    if (data.online) {
+	settext(np, data.players.now);
+	settext(version, data.server.name);
+	settext(motd, data.motd);
+    } else {
+	setclass(np, error);
+	setclass(version, error);
+	setclass(motd, error);
+    }
+}
+$(document).ready(function() {
+	q('//lentium.xyz', display);
+});
+</script>
+
+<style type="text/css" media="screen">
+	.statusbox {
+		min-width: 5em;
+		min-height: 2em;
+		border: 1px solid #999;
+		border-radius: 1em;
+		background-color: #eee;
+		padding: 0.5em;
+		margin: 0.5em;
+	}
+	.label {
+		text-align: right;
+		float: left;
+		margin-right: 1em;
+		min-width: 8em;
+		color: #444;
+	}
+</style>
+
+<div class="statusbox">
+	<div class="label">Online: </div>
+	<i id="online" class="fa fa-question"></i>
+	<div class="label">Version: </div>
+	<i id="version" class="fa fa-question"></i>
+	<div class="label">MOTD: </div>
+	<i id="motd" class="fa fa-question"></i>
+	<div class="label">Players: </div>
+	<i id="numplayers" class="fa fa-question"></i>
+	<div class="label">Last Update: </div>
+	<i id="updated" class="fa fa-question"></i>
+</div>
