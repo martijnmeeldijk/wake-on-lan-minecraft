@@ -247,9 +247,9 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				settext(version, data.server.name);
 				settext(motd, data.motd);
 			} else {
-				setclass(np, error);
-				setclass(version, error);
-				setclass(motd, error);
+				settext(np, "0");
+				settext(version, "n/a");
+				settext(motd, "n/a");
 			}
 		}
 		$(document).ready(function () {
