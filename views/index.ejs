@@ -16,8 +16,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 	<script src="https://momentjs.com/downloads/moment.min.js"></script>
 	<script src="https://ujafedny.org/assets/bower_components/moment/locale/en_us.js"></script>
 	<!-- Your preferred locale instead of * -->
-	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-</head>
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.12.0/css/all.css"></head>
 
 <body class="landing">
 
@@ -62,7 +61,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				<ul class="actions">
 					<li>
 						<div class="label">Online: </div>
-						<i id="online" class="fa fa-question"></i>
+						<div id="online"></div>
 					</li>
 					<li>
 						<div class="label">Version: </div>
@@ -80,7 +79,15 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 						<div class="label">Last Update: </div>
 						<div id="updated"></div>
 					</li>
+					<li id="refresh" style="cursor: pointer;">
+						<i class="fas fa-sync"></i>
+					</li>
+				
 				</ul>
+				
+					
+				
+				
 				<a href="/on" class="button"><%= server %></a>
 				<p><%= time %></p>
 			</div>
@@ -198,9 +205,9 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 		var rq = 'https://mcapi.us/server/status?ip=mc.epicgamertime.com';  	// <---- Your Minecraft server IP here; add &port=<port> if you are using a different port
 		var error = 'unknown';				// of 25565. For instance: https://mcapi.us/server/status?ip=s.nerd.nu&port=25565 
 		var classes = {					// more info in https://mcapi.us/
-			error: "fa-question",
-			false: "fa-times",
-			true: "fa-check",
+			error: "fas fa-question",
+			false: "fas fa-times",
+			true: "fas fa-check",
 		};
 		var allclasses = "";
 		for (i in classes) {
@@ -242,12 +249,13 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				d = new Date(data.last_updated * 1000);
 			moment.locale('en_us');				// The locale which you have used before.
 			settext(updated, moment(d).fromNow());
-			setclass(online, data.online);
 			if (data.online) {
+				settext(online, data.online);
 				settext(np, data.players.now);
 				settext(version, data.server.name);
 				settext(motd, data.motd);
 			} else {
+				settext(online, data.online);
 				settext(np, "0");
 				settext(version, "n/a");
 				settext(motd, "n/a");
@@ -255,7 +263,12 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 		}
 		$(document).ready(function () {
 			q('//lentium.xyz', display);
+			
 		});
+		$('#refresh').click(function () {
+			q('//lentium.xyz', display);
+		});
+		
 	</script>
 
 </body>
