@@ -267,6 +267,10 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 		});
 		$('#refresh').click(function () {
 			q('//lentium.xyz', display);
+			$( this ).addClass( 'fa-spin' );
+    		var $el = $(this);
+    		setTimeout(function() { $el.removeClass( 'fa-spin' ); }, 1000);
+    		startup();
 		});
 		
 	</script>
