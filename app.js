@@ -23,7 +23,7 @@ ledBlue.digitalWrite(0); // Turn BLUE LED off
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
   res.render('index', {server:"Turn on Server", time: ""});
