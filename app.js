@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
+
 const app = express();
+const server = require('http').Server(app);
 var wol = require('wake_on_lan');
 
 var fs = require('fs'); //require filesystem module
-var io = require('socket.io')(http) //require socket.io module and pass the http object (server)
+var io = require('socket.io')(server); //require socket.io module and pass the http object (server)
 var Gpio = require('pigpio').Gpio, //include pigpio to interact with the GPIO
 ledRed = new Gpio(4, {mode: Gpio.OUTPUT}), //use GPIO pin 4 as output for RED
 ledGreen = new Gpio(17, {mode: Gpio.OUTPUT}), //use GPIO pin 17 as output for GREEN
