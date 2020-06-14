@@ -63,7 +63,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				<ul class="actions">
 					<li>
 						<div class="label">Online: </div>
-						<i id="online" class="fas"></i>
+						<i id="online"></i>
 					</li>
 					<li>
 						<div class="label">Version: </div>
@@ -302,16 +302,16 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				updated = $('#updated');
 			
 			if (data.online) {
-				online.removeClass('fa-times');
-				online.addClass('fa-check');
+				online.removeClass('fas fa-times');
+				online.addClass('fas fa-check');
 				settext(np, data.players.online + '/' + data.players.max);
 				settext(version, data.version);
 				settext(motd, data.motd.html[0] + '<br/>' + data.motd.html[1]);
 			}
 			 else {
 				//settext(online, data.online);
-				online.removeClass('fa-check');
-				online.addClass('fa-times');
+				online.removeClass('fas fa-check');
+				online.addClass('fas fa-times');
 				settext(np, "0");
 				settext(version, "n/a");
 				settext(motd, "n/a");
