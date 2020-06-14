@@ -71,8 +71,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 					</li>
 					<li>
 						<div class="label">MOTD: </div>
-						<div hidden id="motd" class="minecraft" style="max-width: 3em; overflow: scroll; white-space: nowrap;"></div>
-						<div id="motd preview" class="minecraft"></div>
+						<div hidden id="motd" class="minecraft"></div>
 					</li>
 					<li>
 						<div class="label">Players: </div>
@@ -312,7 +311,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				settext(online, data.online);
 				settext(np, data.players.online + '/' + data.players.max);
 				settext(version, data.version);
-				settext(motd, data.motd.html);
+				settext(motd, data.motd.html[0] + '\n' + data.motd.html[1]);
 			}
 			 else {
 				settext(online, data.online);
