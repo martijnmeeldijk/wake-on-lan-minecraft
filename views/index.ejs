@@ -308,8 +308,9 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				settext(online, data.online);
 				settext(np, data.players.now);
 				settext(version, data.server.name);
-				let message = data.motd.replaceColorCodes()
-				settext(motd, message);
+				let message = data.motd;
+				let color = message.replaceColorCodes();
+				settext(motd, data.motd);
 			} else {
 				settext(online, data.online);
 				settext(np, "0");
