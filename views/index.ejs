@@ -306,7 +306,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 			
 			if (data.online) {
 				online.removeClass('fa-times');
-				online.addClass('fa-check');
+				$('#online').addClass('fa-check');
 				settext(np, data.players.online + '/' + data.players.max);
 				settext(version, data.version);
 				settext(motd, data.motd.html[0] + '<br/>' + data.motd.html[1]);
