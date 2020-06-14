@@ -306,13 +306,13 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				updated = $('#updated'),
 				d = new Date(data.last_updated * 1000);
 			moment.locale('en_us');				// The locale which you have used before.
-			settext(updated, moment(d).fromNow());
+			//settext(updated, moment(d).fromNow());
 			
 			if (data.online) {
 				settext(online, data.online);
-				settext(np, data.players.now);
-				settext(version, data.server.name);
-				settext(motd, data.motd);
+				settext(np, data.players.online + '/' + data.players.max);
+				settext(version, data.server.version);
+				settext(motd, data.motd.html[0] + data.motd.html[1]);
 			}
 			 else {
 				settext(online, data.online);
