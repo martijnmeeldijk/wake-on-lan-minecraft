@@ -299,14 +299,11 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				version = $('#version'),
 				online = $('#online'),
 				motd = $('#motd'),
-				updated = $('#updated')
-				//d = new Date(data.last_updated * 1000);
-			//moment.locale('en_us');				// The locale which you have used before.
-			//settext(updated, moment(d).fromNow());
+				updated = $('#updated');
 			
 			if (data.online) {
 				online.removeClass('fa-times');
-				$('#online').addClass('fa-check');
+				online.addClass('fa-check');
 				settext(np, data.players.online + '/' + data.players.max);
 				settext(version, data.version);
 				settext(motd, data.motd.html[0] + '<br/>' + data.motd.html[1]);
