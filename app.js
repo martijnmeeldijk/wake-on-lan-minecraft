@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
+var cors = require('cors')
 
 const app = express();
+app.use(cors())
 const server = require('http').Server(app);
 var wol = require('wake_on_lan');
 
@@ -25,23 +27,16 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
 
 app.get('/', function (req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
   res.render('index', {server:"Turn on Server", time: ""});
 });
 app.get('/status', function (req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
     res.render('status', {server:"Turn on Server", time: ""});
   });
 
 app.get('/on', function (req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
     wol.wake('D8CB8A3B5820', function(error) {
         if (error) {
             res.render('index', {server:"Error turning on Server", time: ""});
