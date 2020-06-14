@@ -32,13 +32,16 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function (req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
   res.render('index', {server:"Turn on Server", time: ""});
 });
 app.get('/status', function (req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
     res.render('status', {server:"Turn on Server", time: ""});
   });
 
 app.get('/on', function (req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
     wol.wake('D8CB8A3B5820', function(error) {
         if (error) {
             res.render('index', {server:"Error turning on Server", time: ""});
