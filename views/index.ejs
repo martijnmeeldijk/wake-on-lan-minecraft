@@ -309,7 +309,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				settext(np, data.players.now);
 				settext(version, data.server.name);
 				let message = data.motd;
-				let color = message.replaceColorCodes();
+				let color = mineParse(message);
 				console.log(color);
 				settext(motd, color);
 			} else {

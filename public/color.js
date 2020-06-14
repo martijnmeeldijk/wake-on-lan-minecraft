@@ -1,129 +1,171 @@
-var obfuscators = [];
-var styleMap = {
-    '§4': 'font-weight:normal;text-decoration:none;color:#be0000',
-    '§c': 'font-weight:normal;text-decoration:none;color:#fe3f3f',
-    '§6': 'font-weight:normal;text-decoration:none;color:#d9a334',
-    '§e': 'font-weight:normal;text-decoration:none;color:#fefe3f',
-    '§2': 'font-weight:normal;text-decoration:none;color:#00be00',
-    '§a': 'font-weight:normal;text-decoration:none;color:#3ffe3f',
-    '§b': 'font-weight:normal;text-decoration:none;color:#3ffefe',
-    '§3': 'font-weight:normal;text-decoration:none;color:#00bebe',
-    '§1': 'font-weight:normal;text-decoration:none;color:#0000be',
-    '§9': 'font-weight:normal;text-decoration:none;color:#3f3ffe',
-    '§d': 'font-weight:normal;text-decoration:none;color:#fe3ffe',
-    '§5': 'font-weight:normal;text-decoration:none;color:#be00be',
-    '§f': 'font-weight:normal;text-decoration:none;color:#ffffff',
-    '§7': 'font-weight:normal;text-decoration:none;color:#bebebe',
-    '§8': 'font-weight:normal;text-decoration:none;color:#3f3f3f',
-    '§0': 'font-weight:normal;text-decoration:none;color:#000000',
-    '§l': 'font-weight:bold',
-    '§n': 'text-decoration:underline;text-decoration-skip:spaces',
-    '§o': 'font-style:italic',
-    '§m': 'text-decoration:line-through;text-decoration-skip:spaces',
-};
-function obfuscate(string, elem) {
-    var magicSpan,
-        currNode,
-        len = elem.childNodes.length;
-    if(string.indexOf('<br>') > -1) {
-        elem.innerHTML = string;
-        for(var j = 0; j < len; j++) {
-            currNode = elem.childNodes[j];
-            if(currNode.nodeType === 3) {
-                magicSpan = document.createElement('span');
-                magicSpan.innerHTML = currNode.nodeValue;
-                elem.replaceChild(magicSpan, currNode);
-                init(magicSpan);
-            }
-        }
-    } else {
-        init(elem, string);
-    }
-    function init(el, str) {
-        var i = 0,
-            obsStr = str || el.innerHTML,
-            len = obsStr.length;
-        obfuscators.push( window.setInterval(function () {
-            if(i >= len) i = 0;
-            obsStr = replaceRand(obsStr, i);
-            el.innerHTML = obsStr;
-            i++;
-        }, 0) );
-    }
-    function randInt(min, max) {
-        return Math.floor( Math.random() * (max - min + 1) ) + min;
-    }
-    function replaceRand(string, i) {
-        var randChar = String.fromCharCode( randInt(64,90) ); /*Numbers: 48-57 Al:64-90*/
-        return string.substr(0, i) + randChar + string.substr(i + 1, string.length);
-    }
-}
-function applyCode(string, codes) {
-    var len = codes.length;
-    var elem = document.createElement('span'),
-        obfuscated = false;
-    for(var i = 0; i < len; i++) {
-        elem.style.cssText += styleMap[codes[i]] + ';';
-        if(codes[i] === '§k') {
-            obfuscate(string, elem);
-            obfuscated = true;
-        }
-    }
-    if(!obfuscated) elem.innerHTML = string;
-    return elem;
-}
-function parseStyle(string) {
-    var codes = string.match(/§.{1}/g) || [],
-        indexes = [],
-        apply = [],
-        tmpStr,
-        indexDelta,
-        noCode,
-        final = document.createDocumentFragment(),
-        len = codes.length,
-        string = string.replace(/\n|\\n/g, '<br>');
-    
-    for(var i = 0; i < len; i++) {
-        indexes.push( string.indexOf(codes[i]) );
-        string = string.replace(codes[i], '\x00\x00');
-    }
-    if(indexes[0] !== 0) {
-        final.appendChild( applyCode( string.substring(0, indexes[0]), [] ) );
-    }
-    for(var i = 0; i < len; i++) {
-    	indexDelta = indexes[i + 1] - indexes[i];
-        if(indexDelta === 2) {
-            while(indexDelta === 2) {
-                apply.push ( codes[i] );
-                i++;
-                indexDelta = indexes[i + 1] - indexes[i];
-            }
-            apply.push ( codes[i] );
-        } else {
-            apply.push( codes[i] );
-        }
-        if( apply.lastIndexOf('§r') > -1) {
-            apply = apply.slice( apply.lastIndexOf('§r') + 1 );
-        }
-        tmpStr = string.substring( indexes[i], indexes[i + 1] );
-        final.appendChild( applyCode(tmpStr, apply) );
-    }
-    return final;
-}
-function clearObfuscators() {
-    var i = obfuscators.length;
-    for(;i--;) {
-        clearInterval(obfuscators[i]);
-    }
-    obfuscators = [];
-}
-String.prototype.replaceColorCodes = function() {
-  clearObfuscators();
-  var outputString = parseStyle(String(this));
-  return outputString;
-};
+(function () {
 
-/////////////////////////////////////////////////
-function cutString(str, cutStart, cutEnd){
-  return str.substr(0,cutStart) + str.substr(cutEnd+1);
-}
+    'use strict';
+
+    var currId = 0,
+        obfuscators = {},
+        alreadyParsed = [],
+        styleMap = {
+            '§0': 'color:#000000',
+            '§1': 'color:#0000AA',
+            '§2': 'color:#00AA00',
+            '§3': 'color:#00AAAA',
+            '§4': 'color:#AA0000',
+            '§5': 'color:#AA00AA',
+            '§6': 'color:#FFAA00',
+            '§7': 'color:#AAAAAA',
+            '§8': 'color:#555555',
+            '§9': 'color:#5555FF',
+            '§a': 'color:#55FF55',
+            '§b': 'color:#55FFFF',
+            '§c': 'color:#FF5555',
+            '§d': 'color:#FF55FF',
+            '§e': 'color:#FFFF55',
+            '§f': 'color:#FFFFFF',
+            '§l': 'font-weight:bold',
+            '§m': 'text-decoration:line-through',
+            '§n': 'text-decoration:underline',
+            '§o': 'font-style:italic'
+        };
+
+    function obfuscate(elem, string) {
+        var multiMagic,
+            currNode,
+            listLen,
+            nodeI;
+
+        function randInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function replaceRand(string, i) {
+            var randChar = String.fromCharCode(randInt(64, 95));
+            return string.substr(0, i) + randChar + string.substr(i + 1, string.length);
+        }
+
+        function initMagic(el, str) {
+            var i = 0,
+                obsStr = str || el.innerHTML,
+                strLen = obsStr.length;
+            if(!strLen) return;
+            obfuscators[currId].push(
+                window.setInterval(function () {
+                    if (i >= strLen) i = 0;
+                    obsStr = replaceRand(obsStr, i);
+                    el.innerHTML = obsStr;
+                    i++;
+                }, 0)
+            );
+        }
+
+        if (string.indexOf('<br>') > -1) {
+            elem.innerHTML = string;
+            listLen = elem.childNodes.length;
+            for (nodeI = 0; nodeI < listLen; nodeI++) {
+                currNode = elem.childNodes[nodeI];
+                if (currNode.nodeType === 3) {
+                    multiMagic = document.createElement('span');
+                    multiMagic.innerHTML = currNode.nodeValue;
+                    elem.replaceChild(multiMagic, currNode);
+                    initMagic(multiMagic);
+                }
+            }
+        } else {
+            initMagic(elem, string);
+        }
+    }
+
+    function applyCode(string, codes) {
+        var elem = document.createElement('span'),
+            obfuscated = false;
+
+        string = string.replace(/\x00/g, '');
+
+        codes.forEach(function (code) {
+            elem.style.cssText += styleMap[code] + ';';
+            if (code === '§k') {
+                obfuscate(elem, string);
+                obfuscated = true;
+            }
+        });
+
+        if (!obfuscated) elem.innerHTML = string;
+
+        return elem;
+    }
+
+    function parseStyle(string) {
+        var finalPre = document.createElement('pre'),
+            codes = string.match(/§.{1}/g) || [],
+            codesLen = codes.length,
+            indexes = [],
+            indexDelta,
+            apply = [],
+            strSlice,
+            i;
+
+        if (!obfuscators[currId]) obfuscators[currId] = [];
+
+        string = string.replace(/\n|\\n/g, '<br>');
+
+        for (i = 0; i < codesLen; i++) {
+            indexes.push(string.indexOf(codes[i]));
+            string = string.replace(codes[i], '\x00\x00');
+        }
+
+        if (indexes[0] !== 0) {
+            finalPre.appendChild(applyCode(string.substring(0, indexes[0]), []));
+        }
+
+        for (i = 0; i < codesLen; i++) {
+            indexDelta = indexes[i + 1] - indexes[i];
+            if (indexDelta === 2) {
+                while (indexDelta === 2) {
+                    apply.push(codes[i]);
+                    i++;
+                    indexDelta = indexes[i + 1] - indexes[i];
+                }
+                apply.push(codes[i]);
+            } else {
+                apply.push(codes[i]);
+            }
+            if (apply.lastIndexOf('§r') > -1) {
+                apply = apply.slice(apply.lastIndexOf('§r') + 1);
+            }
+            strSlice = string.substring(indexes[i], indexes[i + 1]);
+            finalPre.appendChild(applyCode(strSlice, apply));
+        }
+
+        return finalPre;
+    }
+
+    function clearObfuscators(id) {
+        obfuscators[id].forEach(function (interval) {
+            clearInterval(interval);
+        });
+        alreadyParsed[id] = [];
+        obfuscators[id] = [];
+    }
+
+    window.mineParse = function initParser(input) {
+        var parsed,
+            i = currId;
+        if (i > 0) {
+            while (i--) {
+                if (alreadyParsed[i].nodeType) {
+                    if (!document.contains(alreadyParsed[i])) {
+                        clearObfuscators(i);
+                    }
+                }
+            }
+        }
+        parsed = parseStyle(input);
+        alreadyParsed.push(parsed);
+        currId++;
+        return {
+            parsed: parsed,
+            raw: parsed.innerHTML
+        };
+    };
+
+}());
