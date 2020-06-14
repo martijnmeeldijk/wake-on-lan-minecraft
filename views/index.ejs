@@ -17,7 +17,6 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 	<script src="https://ujafedny.org/assets/bower_components/moment/locale/en_us.js"></script>
 	<!-- Your preferred locale instead of * -->
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.12.0/css/all.css">
-	<script src="color.js"></script>
 	
 </head>
 
@@ -315,15 +314,16 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				settext(np, data.players.now);
 				settext(version, data.server.name);
 				settext(motd, data.motd);
+				$.post('https://mctools.org/motd-creator/json', { motd: data.motd.serialize() }, function(motd){
+				$('#motd-preview').html(motd['html']);
+			});
 			} else {
 				settext(online, data.online);
 				settext(np, "0");
 				settext(version, "n/a");
 				settext(motd, "n/a");
 			}
-			$.post('https://mctools.org/motd-creator/json', { motd: data.motd.serialize() }, function(motd){
-				$('#motd-preview').html(motd['html']);
-			});
+			
 		}
 		$(document).ready(function () {
 			q('//lentium.xyz', display);
