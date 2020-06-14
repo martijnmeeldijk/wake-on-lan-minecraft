@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-var cors = require('cors')
+var cors = require('cors');
 
 const app = express();
-app.use(cors())
+app.use(cors({
+  origin: 'https://mctools.org/'
+}));
 const server = require('http').Server(app);
 var wol = require('wake_on_lan');
 
