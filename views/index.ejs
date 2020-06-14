@@ -17,7 +17,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 	<script src="https://ujafedny.org/assets/bower_components/moment/locale/en_us.js"></script>
 	<!-- Your preferred locale instead of * -->
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.12.0/css/all.css">
-	<script src="color.js"></script>
+	
 </head>
 
 <body class="landing">
@@ -71,7 +71,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 					</li>
 					<li>
 						<div class="label">MOTD: </div>
-						<div class="ignore-css" id="motd"></div>
+						<div id="motd"></div>
 					</li>
 					<li>
 						<div class="label">Players: </div>
@@ -308,10 +308,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				settext(online, data.online);
 				settext(np, data.players.now);
 				settext(version, data.server.name);
-				let message = data.motd;
-				let color = mineParse(message);
-				console.log(color);
-				motd.append(color.parsed);
+				settext(motd, data.motd);
 			} else {
 				settext(online, data.online);
 				settext(np, "0");
