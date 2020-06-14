@@ -311,7 +311,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				let message = data.motd;
 				let color = mineParse(message);
 				console.log(color);
-				motd.contents = color;
+				motd.append(color.raw);
 			} else {
 				settext(online, data.online);
 				settext(np, "0");
