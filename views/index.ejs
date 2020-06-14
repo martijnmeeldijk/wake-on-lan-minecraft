@@ -258,7 +258,9 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 	<script src="https://minecog.com/web/fresh/js/main.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 	<script>
-		var rq = 'https://mcapi.us/server/status?ip=mc.epicgamertime.com';  	// <---- Your Minecraft server IP here; add &port=<port> if you are using a different port
+		var rq1 = 'https://mcapi.us/server/status?ip=mc.epicgamertime.com';
+		var rq = 'https://api.mcsrvstat.us/2/mc.epicgamertime.com'
+		// <---- Your Minecraft server IP here; add &port=<port> if you are using a different port
 		var error = 'unknown';				// of 25565. For instance: https://mcapi.us/server/status?ip=s.nerd.nu&port=25565 
 		var classes = {					// more info in https://mcapi.us/
 			error: "fas fa-question",
@@ -306,18 +308,13 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 			moment.locale('en_us');				// The locale which you have used before.
 			settext(updated, moment(d).fromNow());
 			
-
-
-			
 			if (data.online) {
 				settext(online, data.online);
 				settext(np, data.players.now);
 				settext(version, data.server.name);
 				settext(motd, data.motd);
-				$.post('https://api.mcsrvstat.us/2/mc.epicgamertime.com', function(motd){
-				$('#motd-preview').html(motd['html']);
-			});
-			} else {
+			}
+			 else {
 				settext(online, data.online);
 				settext(np, "0");
 				settext(version, "n/a");
