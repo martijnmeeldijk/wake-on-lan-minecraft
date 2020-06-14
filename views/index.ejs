@@ -311,8 +311,8 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 			if (data.online) {
 				settext(online, data.online);
 				settext(np, data.players.online + '/' + data.players.max);
-				settext(version, data.server.version);
-				settext(motd, data.motd.html[0] + data.motd.html[1]);
+				settext(version, data.version);
+				settext(motd, data.motd.html);
 			}
 			 else {
 				settext(online, data.online);
