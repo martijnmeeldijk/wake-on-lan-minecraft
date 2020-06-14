@@ -314,7 +314,7 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				settext(np, data.players.now);
 				settext(version, data.server.name);
 				settext(motd, data.motd);
-				$.post('https://mctools.org/motd-creator/json', { motd: data.motd.serialize() }, function(motd){
+				$.post('https://mctools.org/motd-creator/json', { motd: encodeURIComponent( data.motd) }, function(motd){
 				$('#motd-preview').html(motd['html']);
 			});
 			} else {
