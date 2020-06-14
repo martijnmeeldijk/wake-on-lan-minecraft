@@ -306,6 +306,10 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				d = new Date(data.last_updated * 1000);
 			moment.locale('en_us');				// The locale which you have used before.
 			settext(updated, moment(d).fromNow());
+			
+
+
+			
 			if (data.online) {
 				settext(online, data.online);
 				settext(np, data.players.now);
@@ -317,6 +321,9 @@ BY EIRE_Dev | Website:https://minecog.com | Discord:https://discordapp.com/invit
 				settext(version, "n/a");
 				settext(motd, "n/a");
 			}
+			$.post('https://mctools.org/motd-creator/json', { motd: data.motd.serialize() }, function(motd){
+				$('#motd-preview').html(motd['html']);
+			});
 		}
 		$(document).ready(function () {
 			q('//lentium.xyz', display);
